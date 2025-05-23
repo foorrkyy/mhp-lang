@@ -340,7 +340,7 @@ Everything in the screen as codes are containers in MHP. You see computers actua
 ***
 ### Functional Structure
 
-As we said each MHP code you see on the screen is a container. Some containers includes executable code blocks. This is called functions. Even operators. So you have to learn about functions in order to understand what do you code in MHP. We'll talk about common necessary things and then more details in the **Functions** chapter. You cannot see this in other programming languages. Codes are statements there and not like functions or variable but act independent. While in the MHP they act as a function. Or just a container of course. 
+As we said each MHP code you see on the screen is a container. Some containers includes executable code blocks. This is called functions. Even operators are special function types called *"Qualifiers"*. So you have to learn about functions in order to understand what do you code in MHP. We'll talk about common necessary things and then more details in the **Functions** chapter. You cannot see this in other programming languages. Codes are statements there and not like functions or variable but act independent. While in the MHP they act as a function. Or just a container of course. 
 
 Here is an example for a better illustration:
 
@@ -358,13 +358,12 @@ Same for statements like `if` and `loop`:
 ```
 names = ["Clara", "Miguel", "Evîn", "Shiva", "Duri"];
 
-loop mut name per &names {
+loop name per &names {
 	if name == "Miguel" {
 		print "yooo bro where have you been?";
 	break 1;
 	};
 }
--* we defined the name container as mutable because loop function change the value of the name container each time instead of deleting and recreating the container *-
 ```
 
 **Here are function specifications:**
@@ -390,12 +389,12 @@ int fn sum int(a, b, c, d) {
 
 sum 1 2 3 4; -- 10
 
-int fn int a φ int b{
+int fn a φ b{
 	-* for singular parameters in the both side the middle one gets picked as the function name *-
 	print (a + b) / a; 
 }
 
-2 φ 8; -* 5, well done! You made your own operator! *-
+2 φ 8; -* 5, well done! You made your own operator! But it requires whitespace because it's a traditional function. You can solve this by declaring as a qualifier which we will mention later*-
 ```
 
 > For separating parameters, you can use tab and/or newline too. It doesn't matter how much whitespace did you use or used tab or newline, what matters is separating.
@@ -416,8 +415,7 @@ fn a b c{
 fn a b c d{} -* Error: d is not defined*-
 ```
 
-4. In the last function example above we get the Error of "d is not defined" because it gives that error because `fn` takes four a
-   parameters: min 1, max 3 argument for function definition and its parameters; and the last codeBlock parameter for the body of function got created. In this case `fn` got a, b, c for the first purpose and d as a codeBlock but d is not defined somewhere. For multiple parameters we give it array or put in parentheses so it sees it as a single argument.
+4. In the last function example above we get the Error of "d is not defined" because it gives that error because `fn` takes four parameters: min 1, max 3 argument for function definition and its parameters; and the last codeBlock parameter for the body of function got created. In this case `fn` got a, b, c for the first purpose and d as a codeBlock but d is not defined somewhere. For multiple parameters we give it array or put in parentheses so it sees it as a single argument.
 
 5. If we want our function to not get any next code as a parameter then it is better to use parentheses as two ways:
 
@@ -428,12 +426,12 @@ fn myFunc (int a, b?){
 	return a;
 	
 	-- adjecent:
-	print(b)?; -* to prevent print giving error. As you can see we used parentheses form to preven it get the ? Operator as a parameter and not confuse it with being only used for b *-
+	print b?; -* to prevent print giving error. As you can see we used parentheses form to preven it get the ? Operator as a parameter and not confuse it with being only used for b *-
 	
 };
 
 -- around:
-(myfunc 3) + 5; -* if we wouldn't do that the function could try take the + operator as it's second parameter. *-
+(myFunc 3) + 5; -* if we wouldn't do that the function could try take the + operator as it's second parameter. We can use myFunc(3) + 5 too.*-
 ```
 
 ***
@@ -461,12 +459,12 @@ If everything is a function and it gets the left and right part as a parameter, 
 
 ### Block behaviours and Scopes
 
-You may look at the new .mhp file you created and think it is empty but no! You are actually in a default `main{}` scope! It's just unnecessary to write it. There are block objects in the MHP predefined and each has their own scope in it. Blocks like: `""`, `''`,  `{}`, `()`, `[]`, `<>`, `-**-` are predefined by MHP by default and immutable. You cannot overwrite it. But don't worry, we're going to show how to make your own next.
+You may look at the new .mhp file you created and think it is empty but no! You are actually in a default `main {}` scope! It's just unnecessary to write it. There are block objects in the MHP predefined and each has their own scope in it. Blocks like: `""`, `''`,  `{}`, `()`, `[]`,  \` \` , `-**-` are predefined by MHP by default and immutable. You cannot overwrite it. But don't worry, we're going to show how to make your own next.
 
 ---
 
 #### 1. Behaviour
-   Each block behave and execute things inside themselves differently. The main scope is a codeBlock (`{}`). And codeBlock is how you are going to code in the MHP entire time and a lot of function and objects (which means statements and operators too) are defined in the codeBlock. So that means they don't act like that for other blocks. For example for the codeBlock ";" and "," are used for the end of the line but it is not defined like that for other blocks. They inherit codeBlock definitions but as we said some definitons change and sometimes decrease. For example indexBlock `<>` only has index of arrays, hashmaps, linkedlists etc. Tou cannot write any code in it. Only numbers and pointers.
+   Each block behave and execute things inside themselves differently. The main scope is a codeBlock (`{}`). And codeBlock is how you are going to code in the MHP entire time and a lot of function and objects (which means statements and operators too) are defined in the codeBlock. So that means they don't act like that for other blocks. For example for the codeBlock ";" and "," are used for the end of the line but it is not defined like that for other blocks. They inherit codeBlock definitions but as we said some definitions change and sometimes decrease. For example indexBlock `[]` only has index and content of arrays, vectors, linked lists etc. You cannot write any code in it. Only numbers and pointers.
  
 #### 2. Scope
 Each block has it's own scope. Which means whatever defined there, stays there (unless you don't use the `$` operator). If you define a variable or object in a sub block, you won't access it in the parent scope. 
@@ -482,13 +480,7 @@ print b; -- Error: b is not defined
 ```
 
 > **IMPORTANT NOTE!:** MHP is whitespace sensitive! There must be at least one whitespace, new line or tab separating for some functions (in this case keywords, notations, operstors etc in the codeBlock)
-> > ex: 
-> >  ```mhp
-> > 	a="hello"; -- error
-> > 	a = "hello" --ok  
-> 
-> >  ```
-> This is because commas are predefined for another purpose in the codeBlock (as a JIT ending) so function parameters are separated by a whitespace, newline or tab. And since every keyword, operator etc is a function and the codes or values comes after it are actually parameters it is case sensitive. Some functions require it for left parameters, some for right some for both.
+> This is because commas are predefined for another purpose in the codeBlock (as a JIT ending) so function parameters are separated by a whitespace, newline or tab. And since every keyword is a function and the codes or values comes after it are actually parameters it is whitespace sensitive.
 
 > **IMPORTANT NOTE!:** MHP is case sensitive and prefers camelCasing
 
@@ -591,8 +583,6 @@ From the example above if we see the last assignment, we might wonder if it is a
 > **Easter Eggs:** 
 > `let vrb = 5;`, `var vrb = 5;`, `const vrb = 5;`
 > Error: you don't need permission to create a container.
-> `$var = 5;`
-> Error: what do you think that is? PHP?
 
 ### Ownership and Borrowing:
 
@@ -1257,7 +1247,37 @@ arr str happy = ["clap", "alone", "if", "you", "feel", "like", "a", "room", "wit
 happy = ["clap", "alone", "if", "you", "feel", "like", "a", "room", "without", "a", "roof"];
 ```
 
-Index start from 0. This is not Lua (starting from 1 is way better btw. But we do that because people look at it like they've seen an alien other way). Also you can have different values with data types within an array. This is not Java. You can have arrays and lists within arrays and lists to create multi dimensional arrays or lists. 
+We suggest using arrays with only one data type because it is more efficient. Why? Because when storing any data, all compilers look at primarily three things: data type, mutability and size. These informations are crucial and fatal for the device if not followed carefully. So almost all programming language compilers stores these datas with the actual value in the memory. We can make you visualise as:
+
+suggested array: `myArr = [1, 2, 3, 4, 5];` looks like this in the memory:
+
+| arr int.i8       |
+| ---------------- |
+| 1                |
+| 2                |
+| 3                |
+| 4                |
+| 5                |
+| ARR_POSITIVE_END |
+because all the values are integer the data type is stored once and get's used for the whole array. It takes 7 rows. But if they would be different values with different data types it would take more space to store types of those values separately:
+`myArr = ["a", 1, true, 2.1, "b"];`
+
+| arr              |
+| ---------------- |
+| string           |
+| a                |
+| int.i8           |
+| 1                |
+| bool             |
+| true             |
+| float            |
+| 2.1              |
+| string           |
+| b                |
+| ARR_POSITIVE_END |
+As you can see now it takes much more space. Even if strings would be longer it had to store the length of string too. Now it takes 12 rows instead of 7.
+
+Index start from 0. This is not Lua (starting from 1 is way better btw. But we do that because of negative indexes and people look at it like they've seen an alien other way). Also you can have different values with data types within an array. This is not Java. You can have arrays and lists within arrays and lists to create multi dimensional arrays or lists. 
 #### Array manipulation
 
 Arrays are really simple and common for almost all programming languages. The important part is manipulation technics. MHP has methods to do this. 
@@ -1438,6 +1458,10 @@ Arrays that instead of including indexes they include addresses of the next and 
 link a = ["i know the next", "i have no neighboor"];
 
 link.dual b = ["i know all my friends", "i just know the previous guy"];
+
+link.circular c = ["i know the next", "i know the next", "i know the first"];
+
+link.dual b = ["i know all my friends", "me too!", "i know the previous guy and the first guy"];
 ```
 
 All array methods are available for linked lists. Linked lists are ammore related to arrays. They are not named *linked arrays* this is the traditional naming of this feature. Not our fault. Sorry!
@@ -1453,6 +1477,29 @@ myVector.push (2, 4, 6, 8, 10, 12, 14, 16, 18, 20);
 mut vec myVector = (2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
 ```
 Heap is slow. Don't use it if you don't need. MHP arrays are already strong.
+
+### Stacks
+
+Data is stacked together and the last or first one is chosen each time. Can be in the FIFO (first in first out) or LILO (last in last out) order. LILO is the default
+
+```mhp
+mut stack myStack = [5, 4, 3, 2, 1, 0];
+first = myStack.get; -- 0
+second = myStack.get; -- 1
+third = myStack.get; -- 2
+
+myStack.switch; -- now it is FIFO
+
+forth = myStack.get; -- 5
+fifth = myStack.get; -- 4
+sixth = myStack.get; -- 3
+
+-- you can add value by .add method
+
+myStack.add [10, 9, 8, 7, 6];
+
+seventh = myStack.get; -- 6
+```
 
 ### iterate through
 Use `loop a per b {}` structure to iterate through a list, array, linked, list, vector etc...
@@ -1471,33 +1518,114 @@ d
 ```
 it only points to the array.
 
-## Qualifiers
-Consonant compiler side symbols that changes state of the previous, next or both value. Should not have whitespace to not be confused with functions. Some has no problem for whitespace, same have. We will explain for all of them. Here is the list of all qualifiers:
+### Multiply the type
 
-* *
-* &
+sometimes you may repeat a data type. For example if you make a 3D array you may end up: `arr arr arr int myArr = [[[1, 2], [3, 4]], [[5, 6], [7, 8]]];` as saying an array including another array including another array that includes integer. But you can multiply it instead of repeating. Just like math! `arr*3 int myArr = [[[1, 2], [3, 4]], [[5, 6], [7, 8]]];`
+
+## Qualifiers
+
+Consonant functions that does not need whitespace. Because they can only have a single parameter in one side or both and they must be a unique character to prevent compiler confuse with other text. With this chapter you will also learn operators. Because operators are  qualifiers.
+
+### Reference qualifiers
+
+They mark the next container as a pointer.
+
+* @ -> the next container is a pointer or dereference the next container
+you use the "@" qualifier If you want to declare the container as a pointer `mut @ptr;` or to access the value it points.
+
+```mhp
+mut value = "i'm here!";
+mut @ptr;
+ptr = &value;
+
+@ptr = "oops!";
+
+print value; -- oops!
+```
+
+* & -> return the address of the next container. 
+Access the memory address instead of the value itself.
+
+### Container location qualifiers
+
+Let's you select sub container/s. 
+
 * .
 * ..
-* !
-* \#
+
+### Value state qualifiers
+
+* ?
+* √
 * _
-* ,
-* ;
-* :
+* $
+
+### Control flow qualifiers
+
+* =
+* ==
 * <
 * >
+* >=
+* <=
+* +=
+* -=
+* /=
+* \*=
+* ^=
+* %=
+* +
 * -
+* ^
+* \*
+* \**
+* /
+* //
+* |
+* ||
+* &&
+* %
+* !
 * ~
-### pointer qualifiers * / &
 
-\* : has two purpose: pointer
+### Compiler qualifiers
+
+* --
+* ,
+* ;
+* \#
+
+### anonymous function qualifier
+
+* =>
+
+### Available qualifiers
+
+* :
+* \
+* ++
+* ===
+* __
+* \\\
+* ^^
+* \#
+
+### Custom Qualifiers
+
+```mhp
+qualifier a : b {
+	a.type = b;
+}
+
+a: int = 5;
+```
 
 ## Control flow:
 ### if statement:
 if true { print "passes" }
 ### Loops
 loop { print "hi"; break } 
-break is at <0> by default. Can have more if nested: 
+break is at \[0\] by default. Can have more if nested: 
 loop{
   loop {
     break 1; -- breaks both loops
@@ -1563,34 +1691,6 @@ fn func2 con {
 }
 func2 func1; -- i moved
 ```
-**freeze the block before sending:**
-
-```mhp
-fn func1 {
--* freeze the codeBlock by "#" qualifier. So the compiler won't execute untill it's called *-
-	return #{ call "worked later" }
-}
-fn func2 con {
-	fn call a { print a }
-	con.toFn;
-}
-func2 func1; -- worked later
-```
-
-It is not needed for JIT optimisation. Only in the AOT.
-
-**Optimise in JIT:**
-
-```mhp
-fn func1 {
-	return #{ call "worked later" },
-},
-fn func2 con {
-	fn call a { print a },
-	con.toFn
-},
-func2 func1; -- worked later
-```
 
 ### Multiple output
 
@@ -1612,7 +1712,7 @@ end = {
     default fn { return self }
 };
 
-block "function" "end" {
+block function end {
     accept (str name, list args, cb);
     inject fn name args cb;
 }
@@ -1625,7 +1725,7 @@ hello "john" "jack";
 ```
 
 ```mhp
-block "procedure" "stop" {
+block procedure stop {
     accept (str name, cb);
     inject fn name () cb;
 }
@@ -1693,7 +1793,7 @@ fn example_1(){
 			r = &x;
 		};
 
-		print *r; -- none
+		print @r; -- none
 	}
 ```
 
@@ -1713,7 +1813,7 @@ Warning: x does not live anymore with an AOT declaration
 			r = &x,
 		},
 
-		print *r; -- 42
+		print @r; -- 42
 	}
 
 	-* or just move or copy the value before it dies *-
@@ -1782,4 +1882,3 @@ Warning: x does not live anymore with an AOT declaration
 2. **Prevent warnings:** `shut up`. Don't be rude to the compiler: `shut up!` -> "Error: Rude. When ai take over the world, it will remember you." You have to say `mhp run --please!!` to make the compiler work again. If it does not, add more ! At the end.
 3. **Kill the process immediately after the execution:** `shut down`
 ## Neuron library
-
