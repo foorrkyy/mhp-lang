@@ -1,6 +1,6 @@
 ## The Mallow Programming Language
 
-Note: Mallow is currently an early-stage concept and experimental language design. Things are actively evolving, syntax might change, and the compiler is still being pieced together. Keep an eye on the docs for the latest ideas!
+**Note!**: Mallow is currently an early-stage concept and experimental language design. Things are actively evolving, syntax might change, and the compiler is still being pieced together. Keep an eye on the docs for the latest ideas!
 
 *No Magic, Only Logic.*
 
