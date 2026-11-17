@@ -26,13 +26,15 @@ What Does It Look Like?
 
 Hello World (CLI)
 
+```
 default impure fn main {
     print "Hello, terminal!";
 }
-
+```
 
 Embedded Web (MHP / Campfire)
 
+```
 <!DOCTYPE html>
 <html>
   <head>
@@ -48,10 +50,11 @@ Embedded Web (MHP / Campfire)
     <p><#= "Sweet and simple." #></p>
   </body>
 </html>
-
+```
 
 Containers & Pure Functions
 
+```
 -- Variables (containers) are immutable by default
 user = {
     name = "Clara";
@@ -66,10 +69,11 @@ fn greet personName {
 default impure fn main {
     greet user.name;
 }
-
+```
 
 Arrays & Zero-Cost Preloading
 
+```
 mut items = ["apple", "banana", "cherry"];
 
 -- Preload adds elements to negative indices without shifting the whole array in memory
@@ -77,7 +81,7 @@ items.preload ["first", "second"];
 
 print items[-1]; -- "second"
 print items[0];  -- "apple"
-
+```
 
 The Mallow Ecosystem (Planned & In-Progress)
 
